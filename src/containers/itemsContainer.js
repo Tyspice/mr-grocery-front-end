@@ -1,23 +1,27 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Category from '../components/category';
+import groupBy from 'lodash/groupBy';
 
 class ItemsContainer extends React.Component {
+
+
     render() {
+
+        const categorizedData = groupBy(this.props.data, 'category');
+        const categories = Object.keys(categorizedData);
         
-        const data = this.props.data;
-        const ranges = Object.keys(data);
+       
         return (
             <React.Fragment>
                 {
-                    ranges.map((_category) => {
-                        return(
-                            <Category
-                            key={ uuidv4() }
-                            category={ _category }
-                            data={ data[_category] }
-                            />
-
+                    categories.map(category => {
+                        return (
+                        <Category 
+                        category={ category }
+                        items={ categorizedData[category] } 
+                        key={ uuidv4() }
+                        />
                         )
                     })
                 }

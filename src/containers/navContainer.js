@@ -1,19 +1,24 @@
 import React from 'react';
-import { Container, Button, ButtonGroup } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
+import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 
 class NavContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
 
         return (
-            <Container fluid >
-                <ButtonGroup aria-label="Basic example">
-                    <Button variant="secondary">Fetch Them Groceries</Button>
-                </ButtonGroup>
-            </Container>
+            <Navbar bg="light" expand="lg">
+                <BootstrapSwitchButton
+                checked={false}
+                offstyle="success"
+                onstyle="info"
+                onlabel='Audit'
+                offlabel='Shopping'
+                width={100}
+                />
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav" />
+            </Navbar>
         );
     }
 }

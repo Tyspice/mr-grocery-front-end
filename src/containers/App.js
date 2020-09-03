@@ -2,7 +2,9 @@ import React from 'react';
 import HeroBanner from '../components/heroBanner';
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NavContainer from './navContainer';
 import ItemsContainer from './itemsContainer';
+import axios from 'axios';
 
 
 class App extends React.Component {
@@ -14,14 +16,15 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    const response = await fetch('http://mr-grocery.herokuapp.com/api/v2/data', {
-      method: 'GET',
-    });
-    let data = await response.json();
-    data = JSON.parse(data);
-    console.log(data);
+    try {
+      const staples = await axios.get('http://mr-grocery.herokuapp.com/api/v3/staple-items');
+      const oneTimeItems = await axios.get('http://mr-grocery.herokuapp.com/api/v3/one-time-items');
+      const data = [...staples.data, ...oneTimeItems.data];
 
-    this.setState({data: data});
+      this.setState({ data });
+    } catch (error) {
+      console.log(error);
+    }
   }
   
   render() {
@@ -29,7 +32,8 @@ class App extends React.Component {
       <React.Fragment>
         <HeroBanner />
         <Container fluid="sm">
-          <ItemsContainer data={this.state.data}/>
+          <NavContainer />
+          <ItemsContainer data={ this.state.data }/>
         </Container>
       </React.Fragment>
     );
