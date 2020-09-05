@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import ListItem from './listItem';
+import { v4 as uuidv4 } from 'uuid';
 
 const Category = (props) => {
 
@@ -13,7 +14,8 @@ const Category = (props) => {
                items.map(item => {
                 return(
                     <ListItem
-                    name={ item.item }
+                    item={ item }
+                    key={ uuidv4() }
                     />
                 )
             }) 
