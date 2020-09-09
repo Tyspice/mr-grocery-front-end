@@ -14,7 +14,7 @@ const HeroBanner = (props) => {
                 Welcome to Mr Grocery
             </p>
             <ButtonGroup>
-                <LinkContainer to="/dashboard">
+                <LinkContainer to="/dashboard/">
                     <Button variant="info">Dashboard</Button>
                 </LinkContainer>
                 <LinkContainer to="/mobile">

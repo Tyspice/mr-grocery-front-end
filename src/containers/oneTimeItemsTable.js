@@ -1,11 +1,12 @@
 import React from 'react';
 import axios from 'axios';
+import { Container, Navbar, Form, FormControl, Button } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Type } from 'react-bootstrap-table2-editor';
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import _ from 'lodash';
 
-class TestTable extends React.Component {
+class OneTimeItemsTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -28,8 +29,6 @@ class TestTable extends React.Component {
             }
         }   
     }
-
-
 
     render() {
 
@@ -67,18 +66,28 @@ class TestTable extends React.Component {
             }
         });
 
-        return ( 
-            <BootstrapTable 
-            keyField = '_id'
-            data = { items }
-            columns = { columns }
-            cellEdit={ cellEdit }
-            striped
-            hover
-            condensed
-            />
+        return (
+            <Container>
+                <Navbar>
+                    <Form inline>
+                        <FormControl type="text" placeholder="Item" className=" mr-sm-2" />
+                        <FormControl type="text" placeholder="Notes" className=" mr-sm-2" />
+                        <FormControl type="text" placeholder="Category" className=" mr-sm-2" />
+                        <Button type="submit">Add Item</Button>
+                    </Form>
+                </Navbar>
+                <BootstrapTable 
+                keyField = '_id'
+                data = { items }
+                columns = { columns }
+                cellEdit={ cellEdit }
+                striped
+                hover
+                condensed
+                />
+            </Container>
         );
     }
 }
 
-export default TestTable;
+export default OneTimeItemsTable;
