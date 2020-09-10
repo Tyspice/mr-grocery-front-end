@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { Container, Navbar, Form, FormControl, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
+import AddOneTimeItemsForm from './addOneTimeItemsForm';
 import { Type } from 'react-bootstrap-table2-editor';
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import _ from 'lodash';
@@ -11,12 +12,12 @@ class OneTimeItemsTable extends React.Component {
         super(props);
 
         this.handleCellEdit = this.handleCellEdit.bind(this);
+        this.handleAddItem = this.handleAddItem.bind(this);
     }
 
     async handleCellEdit(updatedItem) {
         if(updatedItem) {
             try {
-                console.log(updatedItem);
                 const response = await axios({
                     method: 'PATCH',
                     url: 'http://localhost:8000/api/v3/one-time-items',
@@ -28,6 +29,10 @@ class OneTimeItemsTable extends React.Component {
                 console.log(error);
             }
         }   
+    }
+
+    handleAddItem() {
+        //will handle add item
     }
 
     render() {
@@ -55,6 +60,11 @@ class OneTimeItemsTable extends React.Component {
             }
         }];
 
+        const selectRow = {
+            mode: 'checkbox',
+            bgColor: 'tomato',
+        };
+
         const cellEdit = cellEditFactory({
             mode: 'dbclick', 
             blurToSave: true,
@@ -68,18 +78,14 @@ class OneTimeItemsTable extends React.Component {
 
         return (
             <Container>
-                <Navbar>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Item" className=" mr-sm-2" />
-                        <FormControl type="text" placeholder="Notes" className=" mr-sm-2" />
-                        <FormControl type="text" placeholder="Category" className=" mr-sm-2" />
-                        <Button type="submit">Add Item</Button>
-                    </Form>
-                </Navbar>
+                <AddOneTimeItemsForm 
+                handleAddItem={ this.props.handleAddItem }
+                />
                 <BootstrapTable 
-                keyField = '_id'
-                data = { items }
-                columns = { columns }
+                keyField='_id'
+                data={ items }
+                columns={ columns }
+                selectRow={ selectRow }
                 cellEdit={ cellEdit }
                 striped
                 hover

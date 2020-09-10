@@ -13,13 +13,25 @@ class DashboardContainer extends React.Component {
                 <DashboardNav />
                 <Switch>
                     <Route path='/dashboard/house-staples'>
-                        <HouseStaplesTable data={ data } handleUpdate={ this.props.handleUpdate } />
+                        <HouseStaplesTable 
+                        data={ data } 
+                        handleUpdate={ this.props.handleUpdate }
+                        handleAddItem={ this.props.handleAddItem }
+                        />
                     </Route>
                     <Route path='/dashboard/jktt-staples'>
-                        <JKTTStaplesTable data={ data } handleUpdate={ this.props.handleUpdate } />
+                        <JKTTStaplesTable 
+                        data={ data } 
+                        handleUpdate={ this.props.handleUpdate }
+                        handleAddItem={ this.props.handleAddItem } 
+                        />
                     </Route>
                     <Route path='/dashboard/one-time-items'>
-                        <OneTimeItemsTable data={ data } handleUpdate={ this.props.handleUpdate } />
+                        <OneTimeItemsTable 
+                        data={ data } 
+                        handleUpdate={ this.props.handleUpdate }
+                        handleAddItem={ this.props.handleAddItem } 
+                        />
                     </Route>
                 </Switch>
             </React.Fragment>

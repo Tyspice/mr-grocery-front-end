@@ -14,10 +14,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {staples: [], oneTimeItems: []}
+      staples: [], 
+      oneTimeItems: []
     }
 
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleAddItem = this.handleAddItem.bind(this);
   }
 
   async componentDidMount() {
@@ -25,21 +27,25 @@ class App extends React.Component {
       const staples = await axios.get('http://mr-grocery.herokuapp.com/api/v3/staple-items');
       const oneTimeItems = await axios.get('http://mr-grocery.herokuapp.com/api/v3/one-time-items');
 
-      this.setState({ data: {staples: staples.data, oneTimeItems: oneTimeItems.data} });
+      this.setState({ staples: staples.data, oneTimeItems: oneTimeItems.data });
     } catch (error) {
       console.log(error);
     }
   }
 
   handleUpdate(item) {
-    let oneTimeItems = this.state.data.oneTimeItems;
+    let oneTimeItems = this.state.oneTimeItems;
     const index = _.findIndex(oneTimeItems, e => {
       return e._id === item._id
     });
     oneTimeItems[index] = item;
     this.setState({oneTimeItems: oneTimeItems})
-    console.log(this.state.data.oneTimeItems)
+  }
 
+  handleAddItem(newItem) {
+    const oneTimeItems = [newItem, ...this.state.oneTimeItems];
+    this.setState({oneTimeItems: oneTimeItems});
+    console.log(this.state);
   }
 
   
@@ -49,10 +55,14 @@ class App extends React.Component {
         <HeroBanner />
         <Switch>
           <Route path="/dashboard">
-            <DashboardContainer data={ this.state.data } handleUpdate={ this.handleUpdate }/>
+            <DashboardContainer 
+            data={ this.state } 
+            handleAddItem={ this.handleAddItem } 
+            handleUpdate={ this.handleUpdate }
+            />
           </Route>
           <Route path="/mobile">
-            <MobileContainer data={ this.state.data }/>
+            <MobileContainer data={ this.state }/>
           </Route>
         </Switch>
       </React.Fragment>
