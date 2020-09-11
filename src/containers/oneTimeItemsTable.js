@@ -11,19 +11,25 @@ class OneTimeItemsTable extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            selected: []
+        };
+
         this.handleCellEdit = this.handleCellEdit.bind(this);
-        this.handleAddItem = this.handleAddItem.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
+        this.handleDeleteSelected = this.handleDeleteSelected.bind(this);
     }
 
     async handleCellEdit(updatedItem) {
         if(updatedItem) {
             try {
+                //updates the database
                 const response = await axios({
                     method: 'PATCH',
                     url: 'http://localhost:8000/api/v3/one-time-items',
                     data: updatedItem
                 });
-                console.log(response.data.newItem);
+                //updates the ui
                 this.props.handleUpdate(response.data.newItem);
             } catch (error) {
                 console.log(error);
@@ -31,8 +37,38 @@ class OneTimeItemsTable extends React.Component {
         }   
     }
 
-    handleAddItem() {
-        //will handle add item
+    async handleDeleteSelected() {
+        const toDelete = this.state.selected;
+        if (toDelete.length > 0) {
+            try {
+                //updates the database
+                const response = await axios({
+                    method: 'DELETE',
+                    url: 'http://localhost:8000/api/v3/one-time-items',
+                    data: this.state.selected
+                });
+                //updates the ui
+                this.props.handleDeleted(JSON.parse(response.config.data));
+                this.setState({selected: []});
+    
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
+    handleSelect(id, isSelect) {
+        if (isSelect) {
+            this.setState({ selected: [...this.state.selected, id] });
+        } else {
+            let array = this.state.selected;
+            const index = array.indexOf(id);
+            if (index > -1) {
+                array.splice(index, 1);
+                this.setState({ selected: array })
+            };
+            
+        }
     }
 
     render() {
@@ -63,6 +99,13 @@ class OneTimeItemsTable extends React.Component {
         const selectRow = {
             mode: 'checkbox',
             bgColor: 'tomato',
+            hideSelectColumn: true,
+            clickToSelect: true,
+            clickToEdit: true,
+            onSelect: (row,isSelect, rowIndex, e) => {
+                this.handleSelect(row._id, isSelect);
+            }
+            
         };
 
         const cellEdit = cellEditFactory({
@@ -79,6 +122,7 @@ class OneTimeItemsTable extends React.Component {
         return (
             <Container>
                 <AddOneTimeItemsForm 
+                handleDeleteSelected={ this.handleDeleteSelected }
                 handleAddItem={ this.props.handleAddItem }
                 />
                 <BootstrapTable 

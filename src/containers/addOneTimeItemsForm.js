@@ -33,12 +33,13 @@ class AddOneTimeItemsForm extends React.Component {
     async handleSubmit(e) {
         e.preventDefault();
         try {
+            //updates database
             const response = await axios({
                 method: 'POST',
                 url: 'http://localhost:8000/api/v3/one-time-items',
                 data: this.state
             });
-            console.log(response.data.newItem);
+            //updates ui
             this.props.handleAddItem(response.data.newItem);
         } catch (error) {
             console.log(error);
@@ -56,7 +57,7 @@ class AddOneTimeItemsForm extends React.Component {
     render() {
 
         return (
-            <Navbar>
+            <Navbar expand="lg" className="justify-content-between">
                 <Form inline onSubmit={ this.handleSubmit }>
                     <Form.Group>
                         <FormControl 
@@ -90,6 +91,12 @@ class AddOneTimeItemsForm extends React.Component {
                         </Button>
                     </Form.Group>
                 </Form>
+                <Button 
+                variant="danger"
+                onClick={ this.props.handleDeleteSelected }
+                >
+                    Delete Selected
+                </Button>
             </Navbar>
                 
         );

@@ -17,20 +17,23 @@ class DashboardContainer extends React.Component {
                         data={ data } 
                         handleUpdate={ this.props.handleUpdate }
                         handleAddItem={ this.props.handleAddItem }
+                        handleDeleted={ this.props.handleDeleted }
                         />
                     </Route>
                     <Route path='/dashboard/jktt-staples'>
                         <JKTTStaplesTable 
                         data={ data } 
                         handleUpdate={ this.props.handleUpdate }
-                        handleAddItem={ this.props.handleAddItem } 
+                        handleAddItem={ this.props.handleAddItem }
+                        handleDeleted={ this.props.handleDeleted } 
                         />
                     </Route>
                     <Route path='/dashboard/one-time-items'>
                         <OneTimeItemsTable 
                         data={ data } 
                         handleUpdate={ this.props.handleUpdate }
-                        handleAddItem={ this.props.handleAddItem } 
+                        handleAddItem={ this.props.handleAddItem }
+                        handleDeleted={ this.props.handleDeleted } 
                         />
                     </Route>
                 </Switch>

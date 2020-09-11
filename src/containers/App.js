@@ -20,6 +20,7 @@ class App extends React.Component {
 
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);
+    this.handleDeleted = this.handleDeleted.bind(this);
   }
 
   async componentDidMount() {
@@ -33,6 +34,9 @@ class App extends React.Component {
     }
   }
 
+  /******************************************************************
+   * All of these functions update the ui state (TO DO!! rename them so it's obvious that they are only for updating state)
+   */
   handleUpdate(item) {
     let oneTimeItems = this.state.oneTimeItems;
     const index = _.findIndex(oneTimeItems, e => {
@@ -45,7 +49,17 @@ class App extends React.Component {
   handleAddItem(newItem) {
     const oneTimeItems = [newItem, ...this.state.oneTimeItems];
     this.setState({oneTimeItems: oneTimeItems});
-    console.log(this.state);
+  }
+
+  handleDeleted(deleted) {
+    let oneTimeItems = this.state.oneTimeItems;
+    let index;
+    deleted.forEach(id => {
+      index = oneTimeItems.map((e) => { return e._id; }).indexOf(id);
+      oneTimeItems.splice(index, 1);
+    });
+    this.setState({ oneTimeItems: oneTimeItems });
+    
   }
 
   
@@ -59,6 +73,7 @@ class App extends React.Component {
             data={ this.state } 
             handleAddItem={ this.handleAddItem } 
             handleUpdate={ this.handleUpdate }
+            handleDeleted={ this.handleDeleted }
             />
           </Route>
           <Route path="/mobile">
