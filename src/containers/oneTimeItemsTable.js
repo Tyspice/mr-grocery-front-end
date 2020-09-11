@@ -30,7 +30,7 @@ class OneTimeItemsTable extends React.Component {
                     data: updatedItem
                 });
                 //updates the ui
-                this.props.handleUpdate(response.data.newItem);
+                this.props.handleUpdateUI(response.data.newItem);
             } catch (error) {
                 console.log(error);
             }
@@ -48,7 +48,7 @@ class OneTimeItemsTable extends React.Component {
                     data: this.state.selected
                 });
                 //updates the ui
-                this.props.handleDeleted(JSON.parse(response.config.data));
+                this.props.handleDeleteUI(JSON.parse(response.config.data));
                 this.setState({selected: []});
     
             } catch (error) {
@@ -123,7 +123,7 @@ class OneTimeItemsTable extends React.Component {
             <Container>
                 <AddOneTimeItemsForm 
                 handleDeleteSelected={ this.handleDeleteSelected }
-                handleAddItem={ this.props.handleAddItem }
+                handleAddItemUI={ this.props.handleAddItemUI }
                 />
                 <BootstrapTable 
                 keyField='_id'

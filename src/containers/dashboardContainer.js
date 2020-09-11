@@ -15,25 +15,25 @@ class DashboardContainer extends React.Component {
                     <Route path='/dashboard/house-staples'>
                         <HouseStaplesTable 
                         data={ data } 
-                        handleUpdate={ this.props.handleUpdate }
-                        handleAddItem={ this.props.handleAddItem }
-                        handleDeleted={ this.props.handleDeleted }
+                        handleUpdateUI={ this.props.handleUpdateUI }
+                        handleAddItemUI={ this.props.handleAddItemUI }
+                        handleDeleteUI={ this.props.handleDeleteUI }
                         />
                     </Route>
                     <Route path='/dashboard/jktt-staples'>
                         <JKTTStaplesTable 
                         data={ data } 
-                        handleUpdate={ this.props.handleUpdate }
-                        handleAddItem={ this.props.handleAddItem }
-                        handleDeleted={ this.props.handleDeleted } 
+                        handleUpdateUI={ this.props.handleUpdateUI }
+                        handleAddItemUI={ this.props.handleAddItemUI }
+                        handleDeleteUI={ this.props.handleDeleteUI } 
                         />
                     </Route>
                     <Route path='/dashboard/one-time-items'>
                         <OneTimeItemsTable 
                         data={ data } 
-                        handleUpdate={ this.props.handleUpdate }
-                        handleAddItem={ this.props.handleAddItem }
-                        handleDeleted={ this.props.handleDeleted } 
+                        handleUpdateUI={ this.props.handleUpdateUI }
+                        handleAddItemUI={ this.props.handleAddItemUI }
+                        handleDeleteUI={ this.props.handleDeleteUI } 
                         />
                     </Route>
                 </Switch>

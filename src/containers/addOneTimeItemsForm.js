@@ -40,7 +40,7 @@ class AddOneTimeItemsForm extends React.Component {
                 data: this.state
             });
             //updates ui
-            this.props.handleAddItem(response.data.newItem);
+            this.props.handleAddItemUI(response.data.newItem);
         } catch (error) {
             console.log(error);
         }

@@ -13,15 +13,15 @@ import _ from 'lodash';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       staples: [], 
       oneTimeItems: []
     }
 
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleAddItem = this.handleAddItem.bind(this);
-    this.handleDeleted = this.handleDeleted.bind(this);
+    this.handleUpdateUI = this.handleUpdateUI.bind(this);
+    this.handleAddItemUI = this.handleAddItemUI.bind(this);
+    this.handleDeleteUI = this.handleDeleteUI.bind(this);
   }
 
   async componentDidMount() {
@@ -36,9 +36,10 @@ class App extends React.Component {
   }
 
   /******************************************************************
-   * All of these functions update the ui state (TO DO!! rename them so it's obvious that they are only for updating state)
+   * All of these functions update the ui state (TO DO!! rename them so it's 
+   * obvious that they are only for updating state)
    */
-  handleUpdate(item) {
+  handleUpdateUI(item) {
     let oneTimeItems = this.state.oneTimeItems;
     const index = _.findIndex(oneTimeItems, e => {
       return e._id === item._id
@@ -47,12 +48,12 @@ class App extends React.Component {
     this.setState({oneTimeItems: oneTimeItems})
   }
 
-  handleAddItem(newItem) {
+  handleAddItemUI(newItem) {
     const oneTimeItems = [newItem, ...this.state.oneTimeItems];
     this.setState({oneTimeItems: oneTimeItems});
   }
 
-  handleDeleted(deleted) {
+  handleDeleteUI(deleted) {
     let oneTimeItems = this.state.oneTimeItems;
     let index;
     deleted.forEach(id => {
@@ -72,9 +73,9 @@ class App extends React.Component {
           <Route path="/dashboard">
             <DashboardContainer 
             data={ this.state } 
-            handleAddItem={ this.handleAddItem } 
-            handleUpdate={ this.handleUpdate }
-            handleDeleted={ this.handleDeleted }
+            handleAddItemUI={ this.handleAddItemUI } 
+            handleUpdateUI={ this.handleUpdateUI }
+            handleDeleteUI={ this.handleDeleteUI }
             />
           </Route>
           <Route path="/mobile">
