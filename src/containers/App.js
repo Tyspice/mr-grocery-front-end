@@ -39,27 +39,60 @@ class App extends React.Component {
    * All of these functions update the ui state 
    */
   handleUpdateUI(item) {
-    let oneTimeItems = this.state.oneTimeItems;
-    const index = _.findIndex(oneTimeItems, e => {
-      return e._id === item._id
-    });
-    oneTimeItems[index] = item;
-    this.setState({oneTimeItems: oneTimeItems})
+
+    if(item.staple) {
+      let staples = this.state.staples;
+      const index = _.findIndex(staples, e => {
+        return e._id === item._id
+      });
+      staples[index] = item;
+      this.setState({staples: staples})
+
+    } else {
+      let oneTimeItems = this.state.oneTimeItems;
+      const index = _.findIndex(oneTimeItems, e => {
+        return e._id === item._id
+      });
+      oneTimeItems[index] = item;
+      this.setState({oneTimeItems: oneTimeItems})
+    }
   }
 
   handleAddItemUI(newItem) {
-    const oneTimeItems = [newItem, ...this.state.oneTimeItems];
-    this.setState({oneTimeItems: oneTimeItems});
+
+    if(newItem.staple) {
+      const staples = [newItem, ...this.state.staples];
+      this.setState({staples: staples}); 
+
+    } else {
+      const oneTimeItems = [newItem, ...this.state.oneTimeItems];
+      this.setState({oneTimeItems: oneTimeItems});
+    }
   }
 
-  handleDeleteUI(deleted) {
-    let oneTimeItems = this.state.oneTimeItems;
-    let index;
-    deleted.forEach(id => {
-      index = oneTimeItems.map((e) => { return e._id; }).indexOf(id);
-      oneTimeItems.splice(index, 1);
-    });
-    this.setState({ oneTimeItems: oneTimeItems });
+  handleDeleteUI(deleted, staple) {
+    if(staple) {
+      let staples = this.state.staples;
+      let index;
+      deleted.forEach(id => {
+        index = staples.map((e) => { 
+          return e._id; 
+        }).indexOf(id);
+        staples.splice(index, 1);
+      });
+      this.setState({ staples: staples });
+      
+    } else {
+      let oneTimeItems = this.state.oneTimeItems;
+      let index;
+      deleted.forEach(id => {
+        index = oneTimeItems.map((e) => { 
+          return e._id; 
+        }).indexOf(id);
+        oneTimeItems.splice(index, 1);
+      });
+      this.setState({ oneTimeItems: oneTimeItems });
+    }
     
   }
 

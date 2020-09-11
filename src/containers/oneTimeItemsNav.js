@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Form, FormControl, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-class AddOneTimeItemsForm extends React.Component {
+class OneTimeItemsNav extends React.Component {
     constructor(props) {
         super(props);
 
@@ -103,4 +103,4 @@ class AddOneTimeItemsForm extends React.Component {
     }
 }
 
-export default AddOneTimeItemsForm;
+export default OneTimeItemsNav;

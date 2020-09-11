@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Container } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
-import AddOneTimeItemsForm from './addOneTimeItemsForm';
+import OneTimeItemsNav from './oneTimeItemsNav';
 import { Type } from 'react-bootstrap-table2-editor';
 import cellEditFactory from 'react-bootstrap-table2-editor';
 import _ from 'lodash';
@@ -48,7 +48,7 @@ class OneTimeItemsTable extends React.Component {
                     data: this.state.selected
                 });
                 //updates the ui
-                this.props.handleDeleteUI(JSON.parse(response.config.data));
+                this.props.handleDeleteUI(JSON.parse(response.config.data, false));
                 this.setState({selected: []});
     
             } catch (error) {
@@ -121,7 +121,7 @@ class OneTimeItemsTable extends React.Component {
 
         return (
             <Container>
-                <AddOneTimeItemsForm 
+                <OneTimeItemsNav 
                 handleDeleteSelected={ this.handleDeleteSelected }
                 handleAddItemUI={ this.props.handleAddItemUI }
                 />
