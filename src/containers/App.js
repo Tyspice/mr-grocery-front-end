@@ -13,6 +13,7 @@ import _ from 'lodash';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       staples: [], 
       oneTimeItems: []
