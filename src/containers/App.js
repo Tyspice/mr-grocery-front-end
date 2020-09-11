@@ -26,8 +26,8 @@ class App extends React.Component {
 
   async componentDidMount() {
     try {
-      const staples = await axios.get('http://mr-grocery.herokuapp.com/api/v3/staple-items');
-      const oneTimeItems = await axios.get('http://mr-grocery.herokuapp.com/api/v3/one-time-items');
+      const staples = await axios.get(process.env.REACT_APP_API_STAPLES);
+      const oneTimeItems = await axios.get(process.env.REACT_APP_API_ONETIMEITEMS);
 
       this.setState({ staples: staples.data, oneTimeItems: oneTimeItems.data });
     } catch (error) {
@@ -36,8 +36,7 @@ class App extends React.Component {
   }
 
   /******************************************************************
-   * All of these functions update the ui state (TO DO!! rename them so it's 
-   * obvious that they are only for updating state)
+   * All of these functions update the ui state 
    */
   handleUpdateUI(item) {
     let oneTimeItems = this.state.oneTimeItems;

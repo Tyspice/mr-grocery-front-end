@@ -26,7 +26,7 @@ class OneTimeItemsTable extends React.Component {
                 //updates the database
                 const response = await axios({
                     method: 'PATCH',
-                    url: 'http://localhost:8000/api/v3/one-time-items',
+                    url: process.env.REACT_APP_API_ONETIMEITEMS,
                     data: updatedItem
                 });
                 //updates the ui
@@ -44,7 +44,7 @@ class OneTimeItemsTable extends React.Component {
                 //updates the database
                 const response = await axios({
                     method: 'DELETE',
-                    url: 'http://localhost:8000/api/v3/one-time-items',
+                    url: process.env.REACT_APP_API_ONETIMEITEMS,
                     data: this.state.selected
                 });
                 //updates the ui

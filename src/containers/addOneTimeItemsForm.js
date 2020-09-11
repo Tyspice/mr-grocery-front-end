@@ -36,7 +36,7 @@ class AddOneTimeItemsForm extends React.Component {
             //updates database
             const response = await axios({
                 method: 'POST',
-                url: 'http://localhost:8000/api/v3/one-time-items',
+                url: process.env.REACT_APP_API_ONETIMEITEMS,
                 data: this.state
             });
             //updates ui
