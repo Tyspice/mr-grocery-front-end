@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { ListGroup, Container } from 'react-bootstrap';
+import { ListGroup, Container, Form } from 'react-bootstrap';
 
 const ListItem = (props) => {
 
@@ -24,20 +24,27 @@ const ListItem = (props) => {
         notes:{
             fontSize: "75%",
             color: "grey"
+        },
+        listItem: {
+            flexDirection: "row",
+        },
+        container: {
+            display: "flex",
         }
     }
     
 
     return (
-        <Container horizontal="true">
-            <ListGroup variant="flush" style={{width: "100%"}}>
-                <ListGroup.Item variant={ background(props.item) } key={ uuidv4() }>
-                    { props.item.item }    
-                </ListGroup.Item>
-                <ListGroup.Item style={ styles.notes }key={ uuidv4() }>
-                    { props.item.notes }
-                </ListGroup.Item>     
-            </ListGroup>
+        <Container style={ styles.container }>
+                <Form.Check type="checkbox" name={ props._id }/>
+                <ListGroup variant="flush" style={{width: "100%"}}>
+                    <ListGroup.Item variant={ background(props.item) } key={ uuidv4() }>
+                        { props.item.item }    
+                    </ListGroup.Item>
+                    <ListGroup.Item style={ styles.notes }key={ uuidv4() }>
+                        { props.item.notes }
+                    </ListGroup.Item>     
+                </ListGroup>
         </Container>
     );
 }

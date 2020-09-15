@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
-import ListItem from './listItem';
+import { Card, Form } from 'react-bootstrap';
+// import ListItem from './listItem';
+import ListItemTest from './listItemTest';
 import { v4 as uuidv4 } from 'uuid';
 
 const Category = (props) => {
@@ -8,19 +9,22 @@ const Category = (props) => {
     const items = props.items;
 
     return (
-        <Card>
-            <Card.Header>{ props.category }</Card.Header>
-            {
-               items.map(item => {
-                return(
-                    <ListItem
-                    item={ item }
-                    key={ uuidv4() }
-                    />
-                )
-            }) 
-            }
-        </Card>
+        <Form>
+            <Card>
+                <Card.Header>{ props.category }</Card.Header>
+                {
+                items.map(item => {
+                    return(
+                        <ListItemTest
+                        item={ item }
+                        handleClick={ props.handleClick }
+                        key={ uuidv4() }
+                        />
+                    )
+                }) 
+                }
+            </Card>
+        </Form>
     );
 }
 
