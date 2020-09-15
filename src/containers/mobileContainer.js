@@ -4,6 +4,7 @@ import { Container, Button } from 'react-bootstrap';
 import groupBy from 'lodash/groupBy';
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
+import axios from 'axios';
 
 
 class MobileContainer extends React.Component {
@@ -17,67 +18,97 @@ class MobileContainer extends React.Component {
         }
 
         this.handleClick = this.handleClick.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleClick(item) {
+        this.props.handleClickUI(item);
+
         if(item.staple) {
-            let checkedStaples = this.state.checkedStaples;
-            const index = _.findIndex(checkedStaples, e => {
-                return e._id === item._id
-            });
-            checkedStaples[index].checked = !item.checked;
-            this.setState({ checkedStaples })
+
+            if (item.checked) {
+                this.setState({ checkedStaples: [...this.state.checkedStaples, {_id: item._id, inventoryStatus: 'Well Stocked'}] });
+            } else {
+                let checkedStaples = this.state.checkedStaples;
+                const index = _.findIndex(checkedStaples, e => {
+                    return e._id === item._id
+                });
+                checkedStaples.splice(index, 1);
+                this.setState({ checkedStaples })
+                
+            }
+
         } else {
-            let checkedOneTimeItems = this.state.checkedOneTimeItems;
-            const index = _.findIndex(checkedOneTimeItems, e => {
-                return e._id === item._id
-            });
-            checkedOneTimeItems[index].checked = !item.checked;
-            this.setState({ checkedOneTimeItems })
-        }
-        
-    }
 
-    componentDidMount() {
-        const staples = this.props.data.staples;
-        const oneTimeItems = this.props.data.oneTimeItems;
-        const checkedStaples = staples.map(object => {
-            return {...object, checked: false}
-        });
-
-        const checkedOneTimeItems = oneTimeItems.map(object => {
-            return {...object, checked: false}
-        });
-        this.setState({ checkedStaples });
-        this.setState({ checkedOneTimeItems });
-    }
-
-
-    componentDidUpdate(prevProps) {
-        if(this.props.data !== prevProps.data) {
-            const staples = this.props.data.staples;
-            const oneTimeItems = this.props.data.oneTimeItems;
-            const checkedStaples = staples.map(object => {
-                return {...object, checked: false}
-            });
-
-            const checkedOneTimeItems = oneTimeItems.map(object => {
-                return {...object, checked: false}
-            });
-            this.setState({ checkedStaples });
-            this.setState({ checkedOneTimeItems });
+            if (item.checked) {
+                this.setState({ checkedOneTimeItems: [...this.state.checkedOneTimeItems, item._id] });
+            } else {
+                let checkedOneTimeItems = this.state.checkedOneTimeItems;
+                const index = checkedOneTimeItems.indexOf(item._id);
+                if (index > -1) {
+                    checkedOneTimeItems.splice(index, 1);
+                    this.setState({ checkedOneTimeItems })
+                };
+                
+            }
         }
     }
+
+    async handleSubmit() {
+
+        const toDelete = this.state.checkedOneTimeItems;
+        const toUpdate = this.state.checkedStaples;
+        let response;
+
+        if (toDelete.length > 0) {
+            try {
+                //updates the database
+                response = await axios({
+                    method: 'DELETE',
+                    url: process.env.REACT_APP_API_ONETIMEITEMS,
+                    data: toDelete
+                });
+                //updates the ui
+                this.props.handleDeleteUI(JSON.parse(response.config.data), false);
+                //reset component state
+                this.setState({checkedOneTimeItems: []});
+    
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        if (toUpdate.length > 0) {
+            try {
+                //updates the database
+                response = await axios({
+                    method: 'PATCH',
+                    url: process.env.REACT_APP_API_BULKSTATUSUPDATE,
+                    data: toUpdate
+
+                });
+                //updates ui
+                this.props.handleBulkStatusUpdateUI(JSON.parse(response.config.data));
+
+                this.setState({checkedStaples: []})
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
+    
 
     render() {
-        const allData = [...this.state.checkedStaples, ...this.state.checkedOneTimeItems]
+        const allData = [...this.props.data.staples, ...this.props.data.oneTimeItems]
 
         const categorizedData = groupBy(allData, 'category');
         const categories = Object.keys(categorizedData);
        
         return (
             <Container fluid="sm" >
-                <Button variant="info">Update List</Button>
+                <Button onClick={ this.handleSubmit } variant="info">Update List</Button>
                 {
                     categories.map(category => {
                         return (

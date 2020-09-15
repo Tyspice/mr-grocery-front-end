@@ -19,17 +19,29 @@ class App extends React.Component {
       oneTimeItems: []
     }
 
+    this.handleShoppingClickUI = this.handleShoppingClickUI.bind(this);
     this.handleUpdateUI = this.handleUpdateUI.bind(this);
     this.handleAddItemUI = this.handleAddItemUI.bind(this);
     this.handleDeleteUI = this.handleDeleteUI.bind(this);
+    this.handleBulkStatusUpdateUI = this.handleBulkStatusUpdateUI.bind(this);
   }
 
   async componentDidMount() {
     try {
+
+      //fetches data from the api on component mount
       const staples = await axios.get(process.env.REACT_APP_API_STAPLES);
       const oneTimeItems = await axios.get(process.env.REACT_APP_API_ONETIMEITEMS);
+      
+      //adds a checked parameter to each object
+      const checkedStaples = staples.data.map(object => {
+        return {...object, checked: false}
+      });
+      const checkedOneTimeItems = oneTimeItems.data.map(object => {
+        return {...object, checked: false}
+      });
 
-      this.setState({ staples: staples.data, oneTimeItems: oneTimeItems.data });
+      this.setState({ staples: checkedStaples, oneTimeItems: checkedOneTimeItems });
     } catch (error) {
       console.log(error);
     }
@@ -38,6 +50,25 @@ class App extends React.Component {
   /******************************************************************
    * All of these functions update the ui state 
    */
+
+  handleShoppingClickUI(item) {
+    if(item.staple) {
+      let staples = this.state.staples;
+      const index = _.findIndex(staples, e => {
+          return e._id === item._id
+      });
+      staples[index].checked = !item.checked;
+      this.setState({ staples })
+    } else {
+      let oneTimeItems = this.state.oneTimeItems;
+      const index = _.findIndex(oneTimeItems, e => {
+          return e._id === item._id
+      });
+      oneTimeItems[index].checked = !item.checked;
+      this.setState({ oneTimeItems })
+    }
+  }
+
   handleUpdateUI(item) {
 
     if(item.staple) {
@@ -58,6 +89,21 @@ class App extends React.Component {
     }
   }
 
+  handleBulkStatusUpdateUI(staplesArray) {
+    let staples = this.state.staples;
+
+    staplesArray.forEach(staple => {
+      let index = _.findIndex(staples, e => {
+        return staple._id === e._id;
+      });
+      staples[index].inventoryStatus = staple.inventoryStatus;
+      staples[index].checked = false;
+
+    });
+
+    this.setState({staples: staples})
+  }
+  
   handleAddItemUI(newItem) {
 
     if(newItem.staple) {
@@ -111,7 +157,12 @@ class App extends React.Component {
             />
           </Route>
           <Route path="/mobile">
-            <MobileContainer data={ this.state }/>
+            <MobileContainer 
+            handleClickUI={ this.handleShoppingClickUI }
+            handleDeleteUI={ this.handleDeleteUI }
+            handleBulkStatusUpdateUI={ this.handleBulkStatusUpdateUI } 
+            data={ this.state }
+            />
           </Route>
         </Switch>
       </React.Fragment>
