@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Form } from 'react-bootstrap';
 // import ListItem from './listItem';
-import ListItemTest from './listItemTest';
+import ListItem from './listItem';
 import { v4 as uuidv4 } from 'uuid';
 
 const Category = (props) => {
@@ -15,7 +15,7 @@ const Category = (props) => {
                 {
                 items.map(item => {
                     return(
-                        <ListItemTest
+                        <ListItem
                         item={ item }
                         handleClick={ props.handleClick }
                         key={ uuidv4() }

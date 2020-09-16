@@ -1,7 +1,6 @@
 import React from 'react';
 import Category from '../components/mobile/category';
 import { Container, Button } from 'react-bootstrap';
-import groupBy from 'lodash/groupBy';
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
 import axios from 'axios';
@@ -101,11 +100,27 @@ class MobileContainer extends React.Component {
     
 
     render() {
-        const allData = [...this.props.data.staples, ...this.props.data.oneTimeItems]
+        /**
+         * the following code filters out well stocked items
+         * so that only items needed at the store will show up
+         * in the shopping version of the mobile app
+         */
 
-        const categorizedData = groupBy(allData, 'category');
+        //sets up variables as empty arrays so they're still iterable before load.
+        let data = this.props.data.staples;
+        let out = [];
+        let low = [];
+        let couldGetMore = [];
+        //groups by inventory status and puts only desired statuses into an array.
+        data = _.groupBy(data, 'inventoryStatus');
+        if(data['Out']) out = data['Out'];
+        if(data['Low']) low = data['Low'];
+        if(data['Could Get More']) couldGetMore = data['Could Get More'];
+        data = [...out, ...low, ...couldGetMore, ...this.props.data.oneTimeItems];
+        //creates new object keyed out by category and an array of those categories.
+        const categorizedData = _.groupBy(data, 'category');
         const categories = Object.keys(categorizedData);
-       
+
         return (
             <Container fluid="sm" >
                 <Button onClick={ this.handleSubmit } variant="info">Update List</Button>
