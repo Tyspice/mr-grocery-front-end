@@ -57,8 +57,10 @@ class OneTimeItemsNav extends React.Component {
     render() {
 
         return (
-            <Navbar expand="lg" className="justify-content-between">
-                <Form inline onSubmit={ this.handleSubmit }>
+            <Navbar expand="xlg" className="justify-content-between">
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                <Form onSubmit={ this.handleSubmit }>
                     <Form.Group>
                         <FormControl 
                         value={ this.state.item } 
@@ -89,14 +91,15 @@ class OneTimeItemsNav extends React.Component {
                         >
                             Add Item
                         </Button>
+                        <Button
+                        variant="danger"
+                        onClick={ this.props.handleDeleteSelected }
+                        >
+                        Delete Selected
+                        </Button>
                     </Form.Group>
                 </Form>
-                <Button 
-                variant="danger"
-                onClick={ this.props.handleDeleteSelected }
-                >
-                    Delete Selected
-                </Button>
+                </Navbar.Collapse>
             </Navbar>
                 
         );
