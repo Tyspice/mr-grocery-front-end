@@ -73,8 +73,9 @@ class OneTimeItemsTable extends React.Component {
 
     render() {
 
-        const items = this.props.data.oneTimeItems;
-        const ranges = Object.keys(_.groupBy(items, 'category'));
+        const oneTimeItems = this.props.data.oneTimeItems;
+        const allItems = [...this.props.data.oneTimeItems, ...this.props.data.staples];
+        const ranges = Object.keys(_.groupBy(allItems, 'category'));
 
         const categories = ranges.map(category => {
             return { value: category, label: category }
@@ -82,10 +83,12 @@ class OneTimeItemsTable extends React.Component {
 
         const columns = [{
             dataField: 'item',
-            text: 'Item'
+            text: 'Item',
+            sort: true
         }, {
             dataField: 'notes',
-            text: 'Notes'
+            text: 'Notes',
+            sort: true
         }, {
             dataField: 'category',
             text: 'Category',
@@ -127,7 +130,7 @@ class OneTimeItemsTable extends React.Component {
                 />
                 <BootstrapTable 
                 keyField='_id'
-                data={ items }
+                data={ oneTimeItems }
                 columns={ columns }
                 selectRow={ selectRow }
                 cellEdit={ cellEdit }

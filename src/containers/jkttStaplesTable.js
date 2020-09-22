@@ -99,7 +99,8 @@ class JKTTStaplesTable extends React.Component {
 
             const columns = [{
                 dataField: 'item',
-                text: 'Item'
+                text: 'Item',
+                sort: true
             }, {
                 dataField: 'inventoryStatus',
                 text: 'Inventory Status',
@@ -111,10 +112,12 @@ class JKTTStaplesTable extends React.Component {
             }, {
                 dataField: 'updated',
                 text: 'Last Updated',
+                sort: true,
                 editable: false
             }, {
                 dataField: 'notes',
-                text: 'Notes'
+                text: 'Notes',
+                sort: true
             }, {
                 dataField: 'category',
                 text: 'Category',

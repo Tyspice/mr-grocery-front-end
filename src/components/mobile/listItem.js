@@ -58,8 +58,8 @@ class ListItem extends React.Component {
         <Container onClick={ this.handleClick } style={ styles.container }>
             { checkbox }
             <div style={ styles.itemContainer }>
-            <div>{ this.props.item.item }</div>
-            <div style={ styles.notes }>{ this.props.item.notes }</div>
+                <div>{ this.props.item.item }</div>
+                <div style={ styles.notes }>{ this.props.item.notes }</div>
             </div>
         </Container>
         );

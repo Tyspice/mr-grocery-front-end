@@ -8,10 +8,14 @@ const Category = (props) => {
 
     const items = props.items;
 
+    const styles = {
+        margin: "0px 0px 5px 0px"
+    };
+
     return (
         <Form>
             <Card>
-                <Card.Header>{ props.category }</Card.Header>
+                <Card.Header style={ styles }>{ props.category }</Card.Header>
                 {
                 items.map(item => {
                     return(

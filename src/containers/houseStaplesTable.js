@@ -99,7 +99,8 @@ class HouseStaplesTable extends React.Component {
 
             const columns = [{
                 dataField: 'item',
-                text: 'Item'
+                text: 'Item',
+                sort: true
             }, {
                 dataField: 'inventoryStatus',
                 text: 'Inventory Status',
@@ -111,10 +112,12 @@ class HouseStaplesTable extends React.Component {
             }, {
                 dataField: 'updated',
                 text: 'Last Updated',
-                editable: false
+                editable: false,
+                sort: true
             }, {
                 dataField: 'notes',
-                text: 'Notes'
+                text: 'Notes',
+                sort: true
             }, {
                 dataField: 'category',
                 text: 'Category',
