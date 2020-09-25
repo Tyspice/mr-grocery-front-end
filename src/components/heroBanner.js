@@ -1,12 +1,23 @@
 import React from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import { LinkContainer } from 'react-router-bootstrap';
+import groceryMan from '../img/mr-grocery.png';
 // import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
 const HeroBanner = (props) => {
+
+    const styles = {
+        backgroundImage: `url(${groceryMan})`,
+        backgroundSize: 'contain',
+        backgroundColor: 'white',
+        backgroundPosition: '250px 0px',
+        backgroundRepeat: 'no-repeat',
+
+    };
+
     return (
-        <Jumbotron>
+        <Jumbotron style={ styles } >
             <h1>
                 Mr Grocery
             </h1>
@@ -15,10 +26,10 @@ const HeroBanner = (props) => {
             </p>
             <ButtonGroup>
                 <LinkContainer to="/dashboard/">
-                    <Button variant="info">Dashboard</Button>
+                    <Button variant="outline-primary">Dashboard</Button>
                 </LinkContainer>
                 <LinkContainer to="/mobile">
-                    <Button variant="success">Mobile</Button>
+                    <Button variant="outline-info">Mobile</Button>
                 </LinkContainer>
             </ButtonGroup>
         </Jumbotron>

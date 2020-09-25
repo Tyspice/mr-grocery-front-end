@@ -40,10 +40,7 @@ class ListItem extends React.Component {
                 display: "inline-flex", 
                 alignItems: "center",
                 margin: "0px 0px 5px 0px",
-                borderRadius: "10px",
-                borderStyle: "solid",
-                borderWidth: "1px",
-                backgroundColor: background(this.props.item)
+                backgroundColor: 'white'
             },
             itemContainer: {
                 padding: "10px 5px"
@@ -51,6 +48,11 @@ class ListItem extends React.Component {
             notes: {
                 fontSize: "75%",
                 color: "#485460"
+            },
+            indicator: {
+                backgroundColor: background(this.props.item),
+                height: '2px',
+                width: '20px',
             }
         }
         
@@ -61,6 +63,7 @@ class ListItem extends React.Component {
                 <div>{ this.props.item.item }</div>
                 <div style={ styles.notes }>{ this.props.item.notes }</div>
             </div>
+            <div style={ styles.indicator } />
         </Container>
         );
     }

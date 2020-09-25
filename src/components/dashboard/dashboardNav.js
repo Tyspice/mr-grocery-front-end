@@ -5,7 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const DashboardNav = (props) => {
     return (
-        <Nav variant="tabs">
+        <Nav variant="tabs" fill>
             <Nav.Item>
                 <LinkContainer to="/dashboard/house-staples">
                     <Nav.Link>House Staples</Nav.Link>
