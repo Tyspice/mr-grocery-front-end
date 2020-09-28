@@ -1,8 +1,10 @@
 import React from 'react';
-import HeroBanner from '../components/heroBanner';
+import DashboardHeroBanner from '../components/dashboard/dashboardHeroBanner';
+import MobileHeroBanner from '../components/mobile/mobileHeroBanner';
 import MobileContainer from './mobileContainer';
 import DashboardContainer from './dashboardContainer';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Media from 'react-media';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import axios from 'axios';
@@ -146,25 +148,39 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <HeroBanner />
-        <Switch>
-          <Route path="/dashboard">
-            <DashboardContainer 
-            data={ this.state } 
-            handleAddItemUI={ this.handleAddItemUI } 
-            handleUpdateUI={ this.handleUpdateUI }
-            handleDeleteUI={ this.handleDeleteUI }
-            />
-          </Route>
-          <Route path="/mobile">
-            <MobileContainer 
-            handleClickUI={ this.handleShoppingClickUI }
-            handleDeleteUI={ this.handleDeleteUI }
-            handleBulkStatusUpdateUI={ this.handleBulkStatusUpdateUI } 
-            data={ this.state }
-            />
-          </Route>
-        </Switch>
+        <Media query="(max-width: 699px)">
+          {matches => 
+            matches ? (
+              <Switch>
+                <Route path="/mobile">
+                  <MobileHeroBanner />  
+                  <MobileContainer 
+                  handleClickUI={ this.handleShoppingClickUI }
+                  handleDeleteUI={ this.handleDeleteUI }
+                  handleBulkStatusUpdateUI={ this.handleBulkStatusUpdateUI } 
+                  data={ this.state }
+                  />
+                </Route>
+                <Redirect from="/app" to="/mobile" />
+                <Redirect from="/dashboard" to="/mobile" />
+              </Switch>
+            ) : (
+              <Switch>
+                <Route path="/dashboard">
+                  <DashboardHeroBanner />
+                  <DashboardContainer 
+                  data={ this.state } 
+                  handleAddItemUI={ this.handleAddItemUI } 
+                  handleUpdateUI={ this.handleUpdateUI }
+                  handleDeleteUI={ this.handleDeleteUI }
+                  />
+                </Route>
+                <Redirect from="/app" to="/dashboard" />
+                <Redirect from="/mobile" to="/dashboard" />
+              </Switch>
+            )
+          }
+        </Media>
       </React.Fragment>
     );
   }

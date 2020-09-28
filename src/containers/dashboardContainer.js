@@ -3,7 +3,7 @@ import DashboardNav from '../components/dashboard/dashboardNav';
 import OneTimeItemsTable from './oneTimeItemsTable';
 import HouseStaplesTable from './houseStaplesTable';
 import JKTTStaplesTable from './jkttStaplesTable';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 class DashboardContainer extends React.Component {
     render() {
@@ -36,7 +36,8 @@ class DashboardContainer extends React.Component {
                         handleDeleteUI={ this.props.handleDeleteUI } 
                         />
                     </Route>
-                </Switch>
+                    <Redirect from='/dashboard' to='/dashboard/house-staples' />
+                 </Switch>
             </React.Fragment>
         );
     }

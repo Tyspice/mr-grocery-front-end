@@ -121,9 +121,21 @@ class MobileContainer extends React.Component {
         const categorizedData = _.groupBy(data, 'category');
         const categories = Object.keys(categorizedData);
 
+        const styles = {
+            updateButton: {
+                margin: "0px 0px 10px 0px"
+            }
+        };
+
         return (
             <Container fluid="sm" >
-                <Button onClick={ this.handleSubmit } variant="info">Update List</Button>
+                <Button 
+                style={ styles.updateButton } 
+                onClick={ this.handleSubmit } 
+                variant="success"
+                >
+                    Update List
+                </Button>
                 {
                     categories.map(category => {
                         return (

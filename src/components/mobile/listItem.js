@@ -42,8 +42,12 @@ class ListItem extends React.Component {
                 margin: "0px 0px 5px 0px",
                 backgroundColor: 'white'
             },
-            itemContainer: {
+            itemNotesContainer: {
                 padding: "10px 5px"
+            },
+            itemContainer: {
+                display: 'flex',
+                alignItems: 'center'
             },
             notes: {
                 fontSize: "75%",
@@ -53,17 +57,20 @@ class ListItem extends React.Component {
                 backgroundColor: background(this.props.item),
                 height: '2px',
                 width: '20px',
+                margin: '10px'
             }
         }
         
         return(
         <Container onClick={ this.handleClick } style={ styles.container }>
             { checkbox }
-            <div style={ styles.itemContainer }>
-                <div>{ this.props.item.item }</div>
+            <div style={ styles.itemNotesContainer }>
+                <div style={ styles.itemContainer }>
+                    <div>{ this.props.item.item }</div>
+                    <div style={ styles.indicator } />
+                </div>
                 <div style={ styles.notes }>{ this.props.item.notes }</div>
             </div>
-            <div style={ styles.indicator } />
         </Container>
         );
     }
