@@ -4,12 +4,14 @@ import OneTimeItemsTable from './oneTimeItemsTable';
 import HouseStaplesTable from './houseStaplesTable';
 import JKTTStaplesTable from './jkttStaplesTable';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import DashboardHeroBanner from '../components/dashboard/dashboardHeroBanner';
 
 class DashboardContainer extends React.Component {
     render() {
         const data = this.props.data
         return(
             <React.Fragment>
+                <DashboardHeroBanner />
                 <DashboardNav />
                 <Switch>
                     <Route path='/dashboard/house-staples'>

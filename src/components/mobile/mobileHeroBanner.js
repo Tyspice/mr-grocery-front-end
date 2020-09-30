@@ -15,7 +15,11 @@ const MobileHeroBanner = (props) => {
 
     };
 
-    return <Jumbotron style={ styles } />;
+    return (
+    <Jumbotron 
+    style={ styles } 
+    />
+    );
 }
 
 export default MobileHeroBanner;

@@ -1,8 +1,6 @@
 import React from 'react';
-import DashboardHeroBanner from '../components/dashboard/dashboardHeroBanner';
-import MobileHeroBanner from '../components/mobile/mobileHeroBanner';
-import MobileContainer from './mobileContainer';
 import DashboardContainer from './dashboardContainer';
+import MobileContainer from './mobileContainer';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Media from 'react-media';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -144,8 +142,8 @@ class App extends React.Component {
     
   }
 
-  
   render() {
+
     return (
       <React.Fragment>
         <Media query="(max-width: 699px)">
@@ -153,13 +151,12 @@ class App extends React.Component {
             matches ? (
               <Switch>
                 <Route path="/mobile">
-                  <MobileHeroBanner />  
-                  <MobileContainer 
-                  handleClickUI={ this.handleShoppingClickUI }
+                  <MobileContainer
+                  data={ this.state }
+                  handleShoppingClickUI={ this.handleShoppingClickUI }
                   handleDeleteUI={ this.handleDeleteUI }
                   handleBulkStatusUpdateUI={ this.handleBulkStatusUpdateUI } 
-                  data={ this.state }
-                  />
+                  /> 
                 </Route>
                 <Redirect from="/app" to="/mobile" />
                 <Redirect from="/dashboard" to="/mobile" />
@@ -167,7 +164,6 @@ class App extends React.Component {
             ) : (
               <Switch>
                 <Route path="/dashboard">
-                  <DashboardHeroBanner />
                   <DashboardContainer 
                   data={ this.state } 
                   handleAddItemUI={ this.handleAddItemUI } 
