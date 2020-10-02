@@ -155,6 +155,7 @@ class App extends React.Component {
                   data={ this.state }
                   handleShoppingClickUI={ this.handleShoppingClickUI }
                   handleDeleteUI={ this.handleDeleteUI }
+                  handleUpdateUI={ this.handleUpdateUI }
                   handleBulkStatusUpdateUI={ this.handleBulkStatusUpdateUI } 
                   /> 
                 </Route>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Category from '../components/mobile/category';
+import ShoppingCategory from '../components/mobile/shoppingCategory';
 import { Container, Button } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
@@ -139,7 +139,7 @@ class MobileShoppingContainer extends React.Component {
                 {
                     categories.map(category => {
                         return (
-                        <Category 
+                        <ShoppingCategory 
                         category={ category }
                         items={ categorizedData[category] }
                         handleClick={ this.handleClick }

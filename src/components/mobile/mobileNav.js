@@ -8,18 +8,21 @@ class MobileNav extends React.Component {
 
         const styles = {
             navbar: {
-                marginBottom: "25px"
+                marginBottom: "25px",
+                justifyContent: "space-between"
+
             }
         };
         return (
             <Navbar
             style={ styles.navbar }
             variant="light"
-            bg="secondary" 
+            bg="light" 
             >
+                <Navbar.Brand>Mr Grocery</Navbar.Brand>
                 <BootstrapSwitchButton
                 width={ 110 }
-                checked={ true }
+                checked={ this.props.checkedSwitch }
                 onlabel="Shopping"
                 offlabel="Audit"
                 onstyle="success"

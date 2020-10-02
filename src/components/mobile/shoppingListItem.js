@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { IoIosRadioButtonOff, IoIosRadioButtonOn } from 'react-icons/io'
 
-class ListItem extends React.Component {
+class ShoppingListItem extends React.Component {
     constructor(props) {
         super(props);
 
@@ -77,4 +77,4 @@ class ListItem extends React.Component {
 
 }
 
-export default ListItem;
+export default ShoppingListItem;

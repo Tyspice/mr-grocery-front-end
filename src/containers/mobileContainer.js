@@ -36,7 +36,10 @@ class MobileContainer extends React.Component {
         return (
             <React.Fragment>
                 <MobileHeroBanner />
-                <MobileNav handleSwitch={ this.handleMobileSwitch } />
+                <MobileNav 
+                handleSwitch={ this.handleMobileSwitch }
+                checkedSwitch={ this.state.mobileSwitch } 
+                />
                 <Switch>
                     <Route path="/mobile/shopping">
                         <MobileShoppingContainer 
@@ -47,7 +50,10 @@ class MobileContainer extends React.Component {
                         />
                     </Route>
                     <Route path="/mobile/audit">
-                        <MobileAuditContainer />
+                        <MobileAuditContainer
+                        data={ this.props.data }
+                        handleUpdateUI={ this.props.handleUpdateUI } 
+                        />
                     </Route>
                 </Switch>
                 { this.renderRedirect() }
