@@ -153,6 +153,7 @@ class App extends React.Component {
                 <Route path="/mobile">
                   <MobileContainer
                   data={ this.state }
+                  handleAddItemUI={ this.handleAddItemUI }
                   handleShoppingClickUI={ this.handleShoppingClickUI }
                   handleDeleteUI={ this.handleDeleteUI }
                   handleUpdateUI={ this.handleUpdateUI }

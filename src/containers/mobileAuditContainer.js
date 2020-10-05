@@ -1,5 +1,6 @@
 import React from 'react';
 import AuditCategory from '../components/mobile/auditCategory';
+import MobileOneTimeItemsNav from './mobileOneTimeItemsNav';
 import { Container } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
@@ -39,6 +40,9 @@ class MobileAuditContainer extends React.Component {
 
         return (
             <Container fluid="sm" >
+                <MobileOneTimeItemsNav
+                handleAddItemUI={ this.props.handleAddItemUI }
+                 />
                 {
                     categories.map(category => {
                         return (

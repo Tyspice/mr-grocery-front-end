@@ -52,6 +52,7 @@ class MobileContainer extends React.Component {
                     <Route path="/mobile/audit">
                         <MobileAuditContainer
                         data={ this.props.data }
+                        handleAddItemUI={ this.props.handleAddItemUI }
                         handleUpdateUI={ this.props.handleUpdateUI } 
                         />
                     </Route>
