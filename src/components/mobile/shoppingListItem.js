@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { IoIosRadioButtonOff, IoIosRadioButtonOn } from 'react-icons/io'
 
-class ListItem extends React.Component {
+class ShoppingListItem extends React.Component {
     constructor(props) {
         super(props);
 
@@ -22,14 +22,17 @@ class ListItem extends React.Component {
         const background = (item) => {
             let itemColor;
             switch (item.inventoryStatus) {
-                case 'Well Stocked':
-                    itemColor = '#05c46b'
+                case 'Out':
+                    itemColor = '#d9534f'
+                    break;
+                case 'Low':
+                    itemColor = '#f0ad4e'
                     break;
                 case 'Could Get More':
-                    itemColor = '#ffc048'
+                    itemColor = '#5bc0de'
                     break;
                 default:
-                    itemColor = '#ff5e57'
+                    itemColor = '#d9534f'
                     break;
             }
             return itemColor;
@@ -55,8 +58,9 @@ class ListItem extends React.Component {
             },
             indicator: {
                 backgroundColor: background(this.props.item),
-                height: '2px',
-                width: '20px',
+                height: '10px',
+                width: '10px',
+                borderRadius: '50%',
                 margin: '10px'
             }
         }
@@ -77,4 +81,4 @@ class ListItem extends React.Component {
 
 }
 
-export default ListItem;
+export default ShoppingListItem;
