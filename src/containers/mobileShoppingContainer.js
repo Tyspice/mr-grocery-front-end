@@ -132,7 +132,7 @@ class MobileShoppingContainer extends React.Component {
                 <Button 
                 style={ styles.updateButton } 
                 onClick={ this.handleSubmit } 
-                variant="success"
+                variant="primary"
                 >
                     Update List
                 </Button>
